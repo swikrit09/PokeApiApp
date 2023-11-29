@@ -10,6 +10,29 @@ const PokeDataProvider = ({children}) => {
     const [prevUrl, setPrevUrl] = useState("")
     const [isModalVisible, setIsModalVisible] = useState(false)
     const [selectedItem, setSelectedItem] = useState("")
+    const [searchTerm, setSearchTerm] = useState("")
+    const [errMsg, setErrMsg] = useState(null)
+
+  const getSearchPokemon=async()=>{
+    if(searchTerm){
+      try{
+
+        const res= await fetch(`${url}/${searchTerm.toLowerCase()}`)
+        const data= await res.json()
+        // console.log(res)
+
+          setSelectedItem([data])
+          setIsModalVisible(true)
+          setSearchTerm("")
+          setErrMsg(null)
+        }
+      catch(e){
+        setErrMsg("Pokemon data not found");
+      }
+ 
+    }
+
+  }
 
     const getPokemonData = async (data) => {
         data.map(async (item) => {
@@ -87,7 +110,8 @@ const PokeDataProvider = ({children}) => {
       }
 
   return (
-    <PokeDataContext.Provider value={{pokemons,isLoading,setUrl,setIsModalVisible,nextUrl,prevUrl,isModalVisible,selectedItem,cardPress,getPokemonColor,setPokemons}}>
+    <PokeDataContext.Provider value={{pokemons,isLoading,setUrl,setIsModalVisible,nextUrl,prevUrl,isModalVisible,selectedItem,cardPress,getPokemonColor,setPokemons,searchTerm,setSearchTerm,
+    getSearchPokemon,errMsg}}>
         {children}
     </PokeDataContext.Provider>
   )

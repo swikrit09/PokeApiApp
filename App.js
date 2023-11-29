@@ -218,21 +218,20 @@
 //   }
 // })
 
-import { View, StyleSheet, Image } from "react-native-web"
+import { View, StyleSheet, Image } from "react-native"
 import PokeHome from "./components/PokeHome"
 import { PokeDataProvider } from "./context/Context"
+// import LoginForm from "./components/LoginForm"
 
 export default function App() {
   return (
+    // <LoginForm/>
     <PokeDataProvider>
-
       <View style={[styles.container]}>
         <Image
           source={{ uri: "https://raw.githubusercontent.com/PokeAPI/media/master/logo/pokeapi_256.png" }}
           style={styles.logo}
         />
-
-
         <PokeHome />
       </View>
     </PokeDataProvider>
